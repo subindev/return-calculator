@@ -14,9 +14,10 @@ function App() {
       totalMonths: 60,
     },
     onSubmit(values) {
+      console.log("XXX:", values);
       const newResults = [];
       var netAmount = values.principal;
-      for (let i = 0; i < values.profitMonth; ++i) {
+      for (let i = 0; i < values.profitMonth -1; ++i) {
         newResults.push({
           month: i + 1,
           principal: values.principal,
@@ -36,6 +37,7 @@ function App() {
       }
       setresults(newResults);
       setTotalRevenue(netAmount);
+      console.log(newResults);
     },
   });
 
@@ -82,7 +84,7 @@ function App() {
                         name="profit"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.profitMonth}
+                        value={formik.values.profit}
                         autoComplete="family-name"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -101,7 +103,7 @@ function App() {
                       </label>
                       <input
                         type="number"
-                        name="months"
+                        name="profitMonth"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.profitMonth}
@@ -130,7 +132,6 @@ function App() {
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <button
                     type="submit"
-                    disabled={formik.isSubmitting}
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Calculate
@@ -186,10 +187,10 @@ function App() {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {results.map((person) => (
-                        <tr key={person.month}>
+                      {results.map((item) => (
+                        <tr key={item.month}>
                           <td className="px-6 py-4 whitespace-nowrap text-gray-700">
-                            {person.month}
+                            {item.month}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                             <NumberFormat
@@ -197,7 +198,7 @@ function App() {
                               thousandSeparator={true}
                               thousandsGroupStyle="lakh"
                               prefix={"₹"}
-                              value={person.principal}
+                              value={item.principal}
                             />
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-gray-700">
@@ -206,7 +207,7 @@ function App() {
                               thousandSeparator={true}
                               thousandsGroupStyle="lakh"
                               prefix={"₹"}
-                              value={person.profit}
+                              value={item.profit}
                             />
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-gray-700">
@@ -215,7 +216,7 @@ function App() {
                               thousandSeparator={true}
                               thousandsGroupStyle="lakh"
                               prefix={"₹"}
-                              value={person.netAmount}
+                              value={item.netAmount}
                             />
                           </td>
                         </tr>
