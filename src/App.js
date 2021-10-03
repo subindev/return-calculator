@@ -17,15 +17,8 @@ function App() {
       console.log("XXX:", values);
       const newResults = [];
       var netAmount = values.principal;
-      for (let i = 0; i < values.profitMonth -1; ++i) {
-        newResults.push({
-          month: i + 1,
-          principal: values.principal,
-          profit: 0,
-          netAmount: values.principal,
-        });
-      }
-      for (let i = values.profitMonth; i <= values.totalMonths; ++i) {
+      
+      for (let i = values.profitMonth; i <= values.totalMonths; i = i+ values.profitMonth) {
         let interest = Math.round(netAmount * values.profit * 0.01);
         newResults.push({
           month: i,
